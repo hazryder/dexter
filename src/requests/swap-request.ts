@@ -259,6 +259,7 @@ export class SwapRequest {
                 },
             ],
             datum: undefined,
+            isInlineDatum: false,
             spendUtxos: this._withUtxos,
         }
     }
