@@ -2,7 +2,7 @@ import { LiquidityPool } from '@dex/models/liquidity-pool';
 import { Token } from '@dex/models/asset';
 import { Dexter } from '@app/dexter';
 import { tokensMatch } from '@app/utils';
-import { DatumParameters, PayToAddress, SwapFee, UTxO } from '@app/types';
+import { DatumParameters, PayToAddress, SpendUTxO, SwapFee, UTxO } from '@app/types';
 import { AddressType, DatumParameterKey, MetadataKey, TransactionStatus } from '@app/constants';
 import { DexTransaction } from '@dex/models/dex-transaction';
 
@@ -268,7 +268,11 @@ export class SwapRequest {
             ],
             datum: undefined,
             isInlineDatum: false,
-            spendUtxos: this._withUtxos,
+            spendUtxos: this._withUtxos.map((utxo: UTxO) => {
+                return {
+                    utxo,
+                }
+            }) as SpendUTxO[],
         }
     }
 
