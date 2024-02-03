@@ -245,7 +245,15 @@ export class SwapRequest {
         };
 
         return this._dexter.availableDexs[this._liquidityPool.dex]
-            .buildSwapOrder(this._liquidityPool, defaultSwapParameters, this._withUtxos);
+            .buildSwapOrder(
+                this._liquidityPool,
+                defaultSwapParameters,
+                this._withUtxos.map((utxo: UTxO) => {
+                    return {
+                        utxo,
+                    }
+                }) as SpendUTxO[]
+            );
     }
 
     public getPaymentToServiceFeeAddress(): PayToAddress {
